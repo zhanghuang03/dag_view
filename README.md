@@ -21,9 +21,8 @@ dag流程图
 
 #### 
 
-![界面示例](https://raw.githubusercontent.com/wiki/zhanghuang03/dag_view/images/core.png "界面示例")
 
-[js/diag.js]把选中节点居中于可见区域 ，核心代码
+[js/diag.js]把选中节点居中于可见区域 ，其主要代码
 
 
 
@@ -60,5 +59,8 @@ dag流程图
         var nodeY = (totalTly * scale - axisVisLenY / 2) * -1 ;
         svg.call(zoom.transform, d3.zoomIdentity.translate(nodeX, nodeY).scale(scale));
 ```
+
+#### 代码思路
+![界面示例](https://raw.githubusercontent.com/wiki/zhanghuang03/dag_view/images/core.png "界面示例")
 
 original project github link: https://d3js.org/
