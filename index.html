@@ -1,0 +1,98 @@
+<!doctype html>
+
+<meta charset="utf-8">
+<title>Dagre D3 Demo: Sentence Tokenization</title>
+
+<link rel="stylesheet" href="css/graph.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<script src="js/d3.min.js"></script>
+<script src="js/dagre-d3.js"></script>
+<script src="js/diag.js"></script>
+
+<div class="legend_item_box_1">
+  <div class="legend_item_box_2">
+      <div class="legend_item state" style="border-color: white;background-color: white; cursor: pointer;">未调度</div>
+      <div class="legend_item state" style="border-color: white;background-color: rgba(128, 128, 128, 0.8);cursor: pointer;">待运行</div>
+      <div class="legend_item state" style="border-color: white;background-color: rgba(0, 255, 0, 0.8); cursor: pointer;">运行</div>
+      <div class="legend_item state" style="border-color: white;background-color: rgba(0, 128, 0, 0.8); cursor: pointer;">成功</div>
+      <div class="legend_item state" style="border-color: white;background-color: rgb(255, 0, 0, 0.8);cursor: pointer;">失败</div>      
+  </div>
+</div>
+
+ <svg id="svgCanvas" width=100% height=100% ></svg>
+
+<ul id="myMenu" class="dropdown-menu" role="menu" _id="82">
+  <li><a href="javascript:void(0);" class="job_trigger">执行一次</a></li>
+  <li><a href="javascript:void(0);">查询日志</a></li>
+  <li><a href="javascript:void(0);" class="job_registryinfo">注册节点</a></li>
+  <li class="divider"></li>
+  <li><a href="javascript:void(0);" class="job_operate" _type="job_pause">停止</a></li>
+  <li><a href="/gdb_scheduler/jobcode?jobId=82" target="_blank">GLUE IDE</a></li>
+  <li><a href="javascript:void(0);" class="update">编辑</a></li>
+  <li><a href="javascript:void(0);" class="job_operate" _type="job_del">删除</a></li>
+ </ul>
+
+<script>
+
+  var response = "{\"statePoint\":59,\"data\":[{\"id\":\"85\",\"jobName\":\"同步任务_1\",\"upStreamJobList\":\"47\",\"class\":\"type-succ\"},{\"id\":\"84\",\"jobName\":\"同步任务_2\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"83\",\"jobName\":\"同步任务_3\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"82\",\"jobName\":\"同步任务_4\",\"upStreamJobList\":\"81\",\"class\":\"type-succ\"},{\"id\":\"81\",\"jobName\":\"同步任务_5\",\"upStreamJobList\":\"80\",\"class\":\"type-succ\"},{\"id\":\"80\",\"jobName\":\"同步任务_6\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"79\",\"jobName\":\"同步任务_7\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"78\",\"jobName\":\"同步任务_8\",\"upStreamJobList\":\"77\",\"class\":\"type-succ\"},{\"id\":\"77\",\"jobName\":\"同步任务_9\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"76\",\"jobName\":\"同步任务_10\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"75\",\"jobName\":\"同步任务_11\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"74\",\"jobName\":\"同步任务_12\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"73\",\"jobName\":\"同步任务_13\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"72\",\"jobName\":\"同步任务_14\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"71\",\"jobName\":\"同步任务_15\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"70\",\"jobName\":\"同步任务_16\",\"upStreamJobList\":\"69\",\"class\":\"type-succ\"},{\"id\":\"69\",\"jobName\":\"同步任务_17\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"68\",\"jobName\":\"同步任务_18\",\"upStreamJobList\":\"59\",\"class\":\"type-init\"},{\"id\":\"67\",\"jobName\":\"同步任务_19\",\"upStreamJobList\":\"59\",\"class\":\"type-init\"},{\"id\":\"66\",\"jobName\":\"同步任务_20\",\"upStreamJobList\":\"65\",\"class\":\"type-init\"},{\"id\":\"65\",\"jobName\":\"同步任务_21\",\"upStreamJobList\":\"59\",\"class\":\"type-succ\"},{\"id\":\"64\",\"jobName\":\"同步任务_22\",\"upStreamJobList\":\"59\",\"class\":\"type-queue\"},{\"id\":\"63\",\"jobName\":\"hive任务_2\",\"upStreamJobList\":\"62\",\"class\":\"type-queue\"},{\"id\":\"62\",\"jobName\":\"hive任务_3\",\"upStreamJobList\":\"59\",\"class\":\"type-run\"},{\"id\":\"61\",\"jobName\":\"hive任务_4\",\"upStreamJobList\":\"59\",\"class\":\"type-fail\"},{\"id\":\"60\",\"jobName\":\"hive任务_5\",\"upStreamJobList\":\"59\",\"class\":\"type-fail\"},{\"id\":\"59\",\"jobName\":\"hive任务_6\",\"upStreamJobList\":\"40,41\",\"class\":\"type-succ\"},{\"id\":\"58\",\"jobName\":\"hive任务_7\",\"upStreamJobList\":\"\",\"class\":\"type-fail\"},{\"id\":\"57\",\"jobName\":\"hive任务_8\",\"upStreamJobList\":\"\",\"class\":\"type-run\"},{\"id\":\"56\",\"jobName\":\"hive任务_9\",\"upStreamJobList\":\"\",\"class\":\"type-run\"},{\"id\":\"55\",\"jobName\":\"hive任务_10\",\"upStreamJobList\":\"\",\"class\":\"type-run\"},{\"id\":\"54\",\"jobName\":\"hive任务_11\",\"upStreamJobList\":\"\",\"class\":\"type-run\"},{\"id\":\"53\",\"jobName\":\"hive任务_12\",\"upStreamJobList\":\"\",\"class\":\"type-run\"},{\"id\":\"52\",\"jobName\":\"hive任务_13\",\"upStreamJobList\":\"\",\"class\":\"type-run\"},{\"id\":\"51\",\"jobName\":\"hive任务_14\",\"upStreamJobList\":\"48\",\"class\":\"type-run\"},{\"id\":\"50\",\"jobName\":\"spark任务_1\",\"upStreamJobList\":\"41\",\"class\":\"type-run\"},{\"id\":\"48\",\"jobName\":\"spark任务_2\",\"upStreamJobList\":\"47\",\"class\":\"type-succ\"},{\"id\":\"47\",\"jobName\":\"spark任务_3\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"46\",\"jobName\":\"spark任务_4\",\"upStreamJobList\":\"\",\"class\":\"type-queue\"},{\"id\":\"45\",\"jobName\":\"spark任务_5\",\"upStreamJobList\":\"\",\"class\":\"type-queue\"},{\"id\":\"44\",\"jobName\":\"spark任务_6\",\"upStreamJobList\":\"\",\"class\":\"type-queue\"},{\"id\":\"43\",\"jobName\":\"数据同步_20\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"41\",\"jobName\":\"同步任务_12\",\"upStreamJobList\":\"\",\"class\":\"type-succ\"},{\"id\":\"40\",\"jobName\":\"spark任务_9\",\"upStreamJobList\":\"43\",\"class\":\"type-succ\"},{\"id\":\"38\",\"jobName\":\"spark任务_10\",\"upStreamJobList\":\"\",\"class\":\"type-queue\"},{\"id\":\"34\",\"jobName\":\"spark任务_11\",\"upStreamJobList\":\"\",\"class\":\"type-queue\"},{\"id\":\"33\",\"jobName\":\"spark任务_12\",\"upStreamJobList\":\"\",\"class\":\"type-queue\"},{\"id\":\"17\",\"jobName\":\"spark任务_13\",\"upStreamJobList\":\"\",\"class\":\"type-queue\"},{\"id\":\"15\",\"jobName\":\"spark任务_14\",\"upStreamJobList\":\"\",\"class\":\"type-queue\"}]}";
+
+  var jResponse = JSON.parse(response);
+  var data = jResponse.data;
+  
+  //默认选中的点
+  var statePoint = jResponse.statePoint;
+  //定义点
+  var state = new Array();
+  //定义边
+  var edg = new Array();
+
+  for (var i = 0; i < data.length; i++) {
+  var _id = Number(data[i]["id"]);
+  var state_obj = { id: _id, label: data[i]["jobName"], class: data[i]["class"]};
+  state.push(state_obj);
+  }
+
+  for (var i = 0; i < data.length; i++) {
+    var _id = Number(data[i]["id"]);
+    var upstream_list = data[i]["upStreamJobList"].split(",");
+    for (var j = 0; j < upstream_list.length; j++) {
+      var _start = Number(upstream_list[j]);
+      if (_start != "") {
+        var edg_obj = { start: _start, end: _id, option: {} };
+        edg.push(edg_obj);
+      }
+    }
+  }
+
+  diagGraph.init(statePoint, state, edg); //创建关系图
+
+  var svgCanvas = document.getElementById('svgCanvas'); //绑定事件鼠标点击
+  svgCanvas.addEventListener('click', function (e) {
+  e.preventDefault();
+    if (e.target.tagName === 'rect') {
+      diagGraph.changePoint(e.target.parentNode.id);
+    }
+  })
+
+
+  var myMenu = document.getElementById("myMenu"); //鼠标右键
+  svgCanvas.addEventListener("contextmenu", (event) => { //鼠标右击事件
+  event.preventDefault();
+  diagGraph.changePoint(event.target.parentNode.id);
+  
+  if (event.target.tagName === 'rect') {
+    myMenu.style.top = event.clientY + "px";
+    myMenu.style.left = event.clientX + "px";
+    myMenu.style.display = 'block';
+
+    var node_id = event.path[1].id;
+    console.log("节点id:"+node_id);
+  }
+  });
+  
+  document.addEventListener("click", (event) => {
+    myMenu.style.display = 'none'
+  });
+
+</script>
