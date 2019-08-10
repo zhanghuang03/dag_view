@@ -5,10 +5,15 @@
 
 #### 项目介绍
 dag流程图
+
   改造点：
+  
     （1）首次绘制svg时，把选中节点居中于可见区域，将g-root移动
+    
     （2）选中节点时，突出当前节点以及上下游路径
+    
     （3）基于bootstrap的右键菜单
+    
     （4）样式调整
 
 ![界面示例](https://raw.githubusercontent.com/wiki/zhanghuang03/dag_view/images/pic.jpg "界面示例")
@@ -16,7 +21,11 @@ dag流程图
 
 #### 
 
+![界面示例](https://raw.githubusercontent.com/wiki/zhanghuang03/dag_view/images/core.jpg "界面示例")
+
 [js/diag.js]把选中节点居中于可见区域 ，核心代码
+
+
 
 ```
 
