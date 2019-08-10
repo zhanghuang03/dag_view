@@ -21,7 +21,7 @@ dag流程图
 
 #### 
 
-![界面示例](https://raw.githubusercontent.com/wiki/zhanghuang03/dag_view/images/core.jpg "界面示例")
+![界面示例](https://raw.githubusercontent.com/wiki/zhanghuang03/dag_view/images/core.png "界面示例")
 
 [js/diag.js]把选中节点居中于可见区域 ，核心代码
 
